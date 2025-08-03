@@ -1,3 +1,18 @@
+/* CSS Variables */
+:root {
+  --primary-color: #0077cc;
+  --secondary-color: #005999;
+  --accent-color: #ffb300;
+  --accent-color-2: #00bfae;
+  --background: #f4f4f4;
+  --text-color: #333;
+  --card-bg: #fff;
+  --shadow: 0 2px 5px rgba(0,0,0,0.1);
+  --border-radius: 10px;
+  --transition: 0.3s ease;
+}
+
+/* Reset + Base */
 * {
   margin: 0;
   padding: 0;
@@ -7,58 +22,247 @@
 body {
   font-family: 'Segoe UI', sans-serif;
   line-height: 1.6;
-  background: #f4f4f4;
-  color: #333;
-  padding: 20px;
+  background: linear-gradient(135deg, var(--background) 0%, #e3f2fd 100%);
+  color: var(--text-color);
+  padding: 0;
+  scroll-behavior: smooth;
 }
 
+/* Container */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Theme Switch Styles */
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  margin-left: auto;
+  float: right;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.theme-switch input {
+  display: none;
+}
+
+.theme-switch .slider {
+  width: 40px;
+  height: 22px;
+  background: var(--secondary-color);
+  border-radius: 22px;
+  position: relative;
+  transition: background 0.3s;
+  margin-right: 0.5em;
+  display: inline-block;
+}
+
+.theme-switch .slider::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.theme-switch input:checked + .slider {
+  background: var(--accent-color-2);
+}
+
+.theme-switch input:checked + .slider::before {
+  transform: translateX(18px);
+}
+
+.theme-switch .theme-icon::before {
+  content: "🌙";
+  font-size: 1.2em;
+  transition: content 0.3s;
+}
+
+.theme-switch input:checked ~ .theme-icon::before {
+  content: "☀️";
+}
+
+/* Dark mode using :has() */
+body:has(#dark-toggle:checked) {
+  --primary-color: #90caf9;
+  --secondary-color: #64b5f6;
+  --accent-color: #ffd54f;
+  --accent-color-2: #00bfae;
+  --background: #121212;
+  --text-color: #e0e0e0;
+  --card-bg: #1e1e1e;
+  --shadow: 0 2px 5px rgba(255,255,255,0.05);
+  background: linear-gradient(135deg, #121212 0%, #232526 100%);
+}
+
+/* Layout Sections */
 header, nav, section, footer {
   margin-bottom: 2rem;
-  background: #fff;
+  background: var(--card-bg);
   padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  animation: fadeInUp 0.6s ease-out forwards;
 }
 
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Accent border for sections */
+section {
+  border-left: 5px solid var(--accent-color-2);
+}
+body:has(#dark-toggle:checked) section {
+  border-left: 5px solid var(--accent-color);
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+}
+
+/* Navigation */
 nav ul {
   display: flex;
   gap: 1rem;
   list-style: none;
   justify-content: center;
   flex-wrap: wrap;
+  padding: 0;
 }
 
 nav a {
   text-decoration: none;
-  color: #0077cc;
+  color: var(--primary-color);
   font-weight: bold;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--border-radius);
+  transition: background 0.3s, color 0.3s, transform 0.3s;
 }
 
-section h2 {
-  margin-bottom: 1rem;
-  color: #0077cc;
+nav a:hover,
+nav a:focus {
+  background: var(--accent-color-2);
+  color: #fff;
+  transform: translateY(-2px) scale(1.05);
+  text-decoration: none;
 }
 
-ul li {
-  margin-left: 1.5rem;
-}
-
+/* Forms */
 form {
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-input, textarea, button {
+input, textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 0.7rem;
   font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0,119,204,0.2);
 }
 
 button {
-  background-color: #0077cc;
+  background: var(--accent-color-2);
   color: white;
   border: none;
+  padding: 0.7rem;
+  border-radius: var(--border-radius);
   cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s, color 0.3s, transform 0.3s;
+}
+
+button:hover, button:focus {
+  background: var(--accent-color);
+  color: #fff;
+  transform: translateY(-2px) scale(1.03);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Lists */
+ul li {
+  margin: 0.5rem 0 0.5rem 1.5rem;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  background: var(--primary-color);
+  color: #fff;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  margin-top: 3rem;
+}
+
+footer a {
+  color: #fff;
+  margin: 0 0.5rem;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+footer a:hover {
+  color: #ffd700;
+}
+
+/* Icon Alignment */
+i.fab, i.fas {
+  margin-right: 0.3em;
+  vertical-align: middle;
+}
+
+/* Responsive Design */
+@media (max-width: 700px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+  header, nav, section, footer {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  form {
+    max-width: 100%;
+  }
 }
