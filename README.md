@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Portfolio Website
 
 A modern, responsive portfolio website with a dark mode toggle and smooth animations. Built with pure HTML and CSS.
