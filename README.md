@@ -58,11 +58,10 @@ python -m http.server 8000
 - Edge (latest)
 
 
-## 📱 Responsive Breakpoints
-
-- Mobile: < 768px
-- Tablet & Desktop: ≥ 768px
-
+## 📱 Live Site URL
+```
+https://austill.github.io/portfolio-site/
+```
 ## 🎯 Future Improvements
 
 - [ ] Add form submission functionality
